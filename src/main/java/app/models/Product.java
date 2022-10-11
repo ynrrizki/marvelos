@@ -2,7 +2,7 @@ package app.models;
 
 import marvelos.src.illuminate.database.Model;
 
-public class User extends Model {
+public class Product extends Model {
     protected String table;
 
     @Override

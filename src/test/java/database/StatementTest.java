@@ -2,8 +2,6 @@ package database;
 
 import app.models.User;
 import org.junit.jupiter.api.Test;
-//import vendor.marvelos.src.illuminate.database.mysql.Database;
-
 import java.sql.*;
 
 public class StatementTest {

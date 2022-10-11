@@ -19,7 +19,7 @@ public abstract class Model {
     private String query = "";
 
     /**
-     *  The table associated with the model.
+     *  The database for the instance.
      *
      *  @var string
      */
@@ -73,7 +73,11 @@ public abstract class Model {
         this.table = table;
     }
 
-
+    /**
+     *  Get all of the models from the database.
+     *
+     * @return ResultSet
+     */
     public ResultSet all() {
         if (getTable() == null) {
             return instance.query("SELECT * FROM " + Utility.tableOf(this));
@@ -82,11 +86,19 @@ public abstract class Model {
         }
     }
 
+    /**
+     *  The getter of the property table
+     * @return this
+     */
     public Model where(String field, String value) {
         setQuery(" WHERE " + field + " = '" + value + "'");
         return this;
     }
 
+    /**
+     *  The getter of the property table
+     * @return Integer
+     */
     public Integer count() {
         ResultSet rs;
         if (getTable() == null) {
@@ -105,6 +117,10 @@ public abstract class Model {
         return 0;
     }
 
+    /**
+     *  The getter of the property table
+     * @return ResultSet
+     */
     public ResultSet get() {
         ResultSet rs;
         if (getTable() == null) {
@@ -114,5 +130,13 @@ public abstract class Model {
         }
         return rs;
     }
+
+    /**
+     *
+     */
+    public void save() {
+
+    }
+
 
 }
