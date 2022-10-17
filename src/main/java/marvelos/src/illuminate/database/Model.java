@@ -2,9 +2,12 @@ package marvelos.src.illuminate.database;
 
 import java.sql.ResultSet;
 
+import app.models.User;
+import marvelos.src.illuminate.DBCollection;
 import marvelos.src.illuminate.database.mysql.Database;
 
 import java.sql.SQLException;
+import java.util.*;
 
 public abstract class Model {
 
@@ -30,14 +33,21 @@ public abstract class Model {
      *
      *  @var string
      */
-    protected String table;
+    protected String table = Utility.tableOf(this);
 
     /**
      *  The primary key for the model.
      *
+     *  @var string
+     */
+    protected String id = "id";
+
+    /**
+     *  The primary key value for the model.
+     *
      *  @var integer
      */
-    private Integer id;
+    private int _id;
 
     /**
      *  The name of the "created at" column.
@@ -118,7 +128,7 @@ public abstract class Model {
     }
 
     /**
-     *  The getter of the property table
+     *  The getter of the data table
      * @return ResultSet
      */
     public ResultSet get() {
@@ -132,10 +142,90 @@ public abstract class Model {
     }
 
     /**
+     * Save the model to the database.
      *
+     * @param  array  $options
+     * @return bool
      */
-    public void save() {
+    public void save(DBCollection query) {
+        StringBuffer queryInitialize;
+        if(getTable() == null) {
+            queryInitialize = new StringBuffer("INSERT INTO " + Utility.tableOf(this) + " ");
+        } else {
+            queryInitialize = new StringBuffer("INSERT INTO " + getTable() + " ");
+        }
+        String column = columnBracket(query);
+        String value = valueBracket(query);
 
+        instance.queryUpdate(queryInitialize.append(column) + " VALUES " + value);
+
+    }
+
+    public Model find(int id) {
+        this._id = id;
+        setQuery(" WHERE " + this.id + " = '" + id + "'");
+        return this;
+    }
+
+    public void update(DBCollection query) {
+        this.find(_id);
+        StringBuffer queryInitialize;
+        if (getTable() == null) {
+            queryInitialize = new StringBuffer("UPDATE " + Utility.tableOf(this) + " SET ");
+        } else {
+            queryInitialize = new StringBuffer("UPDATE " + getTable() + " SET ");
+        }
+        instance.queryUpdate(updateProcess(query, queryInitialize));
+    }
+
+    public void delete() {
+        this.find(_id);
+        StringBuffer queryInitialize;
+        if (getTable() == null) {
+            queryInitialize = new StringBuffer("DELETE FROM " + Utility.tableOf(this) + getQuery());
+        } else {
+            queryInitialize = new StringBuffer("DELETE FROM " + getTable() + getQuery());
+        }
+        instance.queryUpdate(queryInitialize.toString());
+    }
+
+    protected String updateProcess(DBCollection query, StringBuffer queryInitialize) {
+        String[] column = new String[query.column.length];
+        String[] value = new String[query.value.length];
+        StringBuffer setColumn;
+        String[] result = new String[query.column.length];
+        for ( int i = 0; i < query.column.length; i++) {
+            column[i] = query.column[i];
+            value[i] = query.value[i];
+            setColumn = new StringBuffer(column[i] + " = " + "'" + value[i] + "'");
+            if (i != query.column.length - 1) {
+                setColumn.append(", ");
+            }
+            result[i] += queryInitialize.append(setColumn) + getQuery() + ";";
+        }
+        return result[query.column.length - 1].replace("null", "");
+    }
+
+    protected String valueBracket(DBCollection query) {
+        // value
+        String[] valueCode = new String[query.value.length];
+        for(int i = 0; i < query.value.length; i++) {
+            valueCode[i] = "'" + query.value[i] + "'";
+        }
+        StringBuffer valueArr = new StringBuffer(Arrays.toString(valueCode));
+        StringBuffer valueStart = valueArr.replace(0, 1, "(");
+        StringBuffer valueEnd = valueStart.replace(valueStart.length() - 1, valueStart.length(), ")");
+        StringBuffer value = valueEnd;
+        return value.toString();
+    }
+
+    protected String columnBracket(DBCollection query) {
+        // column
+        StringBuffer columnArr = new StringBuffer(Arrays.toString(query.column));
+        StringBuffer columnStart = columnArr.replace(0, 1, "(");
+        StringBuffer columnEnd = columnStart.replace(columnStart.length() - 1, columnStart.length(), ")");
+        StringBuffer column = columnEnd;
+        return column.toString();
     }
 
 

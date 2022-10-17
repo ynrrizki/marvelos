@@ -5,6 +5,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 public class Database {
@@ -27,7 +28,7 @@ public class Database {
 
     private Connection _conn;
     private static Database _instance = null;
-    private Statement _statement;
+    private PreparedStatement _statement;
     private ResultSet _resultSet;
     private int _resultUpdate;
 
@@ -48,8 +49,8 @@ public class Database {
 
     public int queryUpdate(String query) {
         try {
-            this.run();
-            _resultUpdate = _statement.executeUpdate(query);
+            this.run(query);
+            _resultUpdate = _statement.executeUpdate();
             return _resultUpdate;
         } catch(SQLException e) {
             e.printStackTrace();
@@ -59,8 +60,8 @@ public class Database {
 
     public ResultSet query(String query) {
         try {
-            this.run();
-            _resultSet = _statement.executeQuery(query);
+            this.run(query);
+            _resultSet = _statement.executeQuery();
             return _resultSet;
         } catch(SQLException e) {
             e.printStackTrace();
@@ -68,9 +69,9 @@ public class Database {
         return _resultSet = null;
     }
 
-    public void run() {
+    public void run(String query) {
         try {
-            _statement = _conn.createStatement();
+            _statement = _conn.prepareStatement(query);
         } catch(SQLException e) {
             e.printStackTrace();
         }
