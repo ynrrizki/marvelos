@@ -1,10 +1,9 @@
-package marvelos.src.illuminate.database;
+package marvelos.illuminate.database;
 
 import java.sql.ResultSet;
 
-import app.models.User;
-import marvelos.src.illuminate.DBCollection;
-import marvelos.src.illuminate.database.mysql.Database;
+import marvelos.illuminate.DBCollection;
+import marvelos.illuminate.database.mysql.Database;
 
 import java.sql.SQLException;
 import java.util.*;

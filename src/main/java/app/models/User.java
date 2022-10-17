@@ -1,6 +1,6 @@
 package app.models;
 
-import marvelos.src.illuminate.database.Model;
+import marvelos.illuminate.database.Model;
 
 public class User extends Model {
     protected String table;

@@ -1,13 +1,9 @@
 package database;
 
 import app.models.User;
-import marvelos.src.illuminate.DBCollection;
+import marvelos.illuminate.DBCollection;
 import org.junit.jupiter.api.Test;
 import java.sql.*;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class StatementTest {
 

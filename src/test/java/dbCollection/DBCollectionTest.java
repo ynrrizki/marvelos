@@ -1,6 +1,6 @@
 package dbCollection;
 
-import marvelos.src.illuminate.DBCollection;
+import marvelos.illuminate.DBCollection;
 import org.junit.jupiter.api.Test;
 
 public class DBCollectionTest {

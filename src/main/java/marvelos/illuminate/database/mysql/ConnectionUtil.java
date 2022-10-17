@@ -1,4 +1,4 @@
-package marvelos.src.illuminate.database.mysql;
+package marvelos.illuminate.database.mysql;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 

@@ -1,4 +1,4 @@
-package marvelos.src.illuminate;
+package marvelos.illuminate;
 
 public class DBCollection {
     public String[] column;

@@ -1,4 +1,4 @@
-package marvelos.src.illuminate.database.mysql;
+package marvelos.illuminate.database.mysql;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 public class Database {
     static final Dotenv dotenv = (Dotenv) Dotenv.configure()
