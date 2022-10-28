@@ -28,3 +28,9 @@ gak beda jauh sama laravel ehe.
 Jika kita ingin menginstall project marvelos, kita dapat clone project
 
 pada git [repo gua](https://github.com/ynrrizki/marvelos)
+
+Clone project and install dependencies:
+
+```bash
+$ git clone https://github.com/ynrrizki/marvelos.git example-app
+```
