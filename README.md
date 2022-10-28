@@ -9,7 +9,7 @@ Status: Completed 🏁
 
 Framework untuk java itu banyak, hanya saja framework ini adalah
 
-sebuah framework yang dibuat atas malesnya gua dalam membuat sistem pada java swing,
+sebuah framework mini yang dibuat atas malesnya gua dalam membuat sistem pada java swing,
 
 sebenarnya bisa aja sih, gak perlu bikin framework kek begini, terus gue ngoding sendiri dari awal
 
